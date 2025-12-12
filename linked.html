@@ -1,53 +1,21 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
   <title>Card Linked</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f4f4f9;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-    }
-    .message-box {
-      background: white;
-      padding: 30px;
-      border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-      text-align: center;
-    }
-    .checkmark {
-      font-size: 48px;
-      color: #4CAF50;
-    }
-    h2 {
-      color: #333;
-      margin-top: 10px;
-    }
-    p {
-      color: #555;
-      margin-top: 10px;
-    }
-    a {
-      display: inline-block;
-      margin-top: 20px;
-      padding: 10px 20px;
-      background-color: #4CAF50;
-      color: white;
-      text-decoration: none;
-      border-radius: 4px;
-      font-weight: bold;
-    }
+    body { font-family: Arial; text-align: center; padding: 40px; background-color: #f4f4f4; }
+    .message { max-width: 420px; margin: auto; background: white; padding: 24px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+    h2 { color: #2e7d32; }
+    button { margin-top: 20px; padding: 10px 20px; background-color: #4CAF50; color: white; border: none; border-radius: 4px; font-size: 16px; cursor: pointer; }
+    button:hover { background-color: #45a049; }
   </style>
 </head>
 <body>
-  <div class="message-box">
-    <div class="checkmark">✔️</div>
-    <h2>Congratulations!</h2>
+  <div class="message">
+    <h2>✅ Congratulations!</h2>
     <p>Your card has been successfully linked.</p>
-    <a href="dashboard.html">Continue</a>
+    <button onclick="window.location.href='dashboard.html'">Linked Card</button>
   </div>
 </body>
 </html>
