@@ -5,15 +5,59 @@
   <title>greendot bank — Dashboard</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
-    /* same CSS as before, trimmed for brevity */
+    :root{
+      --bg:#f4f4f4;
+      --green:#2e7d32;
+      --muted:#777;
+      --cardYellow:#FFD54F;
+      --radius:12px;
+      --shadow:0 8px 20px rgba(0,0,0,0.15);
+    }
+    *{box-sizing:border-box}
+    body{font-family:Arial, sans-serif; background:var(--bg); margin:0; padding:16px;}
+    .container{max-width:420px; margin:auto;}
+    .title{ text-align:center; color:var(--green); font-size:22px; font-weight:bold; margin-bottom:16px; }
+    .greeting{ text-align:center; color:#333; font-size:16px; margin-bottom:16px; font-weight:500; }
+    .greeting::before{ content:"✔ "; color:var(--green); font-weight:bold; }
+
+    .section{ background:#fff; border-radius:var(--radius); box-shadow:var(--shadow); padding:20px; margin-bottom:16px; }
+
+    .balance-top{ display:flex; align-items:center; justify-content:space-between; }
+    .balance-label{ color:#555; font-weight:bold; font-size:14px; }
     .balance-amount{ font-size:24px; font-weight:600; color:#111; }
     .eye-btn{ background:none; border:none; cursor:pointer; }
     .eye-btn svg{ width:22px; height:22px; fill:#777; }
+    .balance-desc{ font-size:13px; color:var(--muted); margin-top:6px; }
+
+    .card-balance{ font-size:18px; font-weight:bold; color:#333; margin-bottom:8px; }
+    .status-circle{
+      display:inline-flex; align-items:center; justify-content:center;
+      width:80px; height:80px;
+      border-radius:50%; background:var(--green); color:#fff;
+      font-weight:bold; font-size:14px; margin:12px auto;
+    }
+
+    .card-visual{
+      background:var(--cardYellow); border-radius:14px; box-shadow:var(--shadow);
+      padding:26px; color:#222; margin-top:12px;
+    }
+    .card-row{ display:flex; align-items:center; justify-content:space-between; }
+    .card-brand{ font-weight:bold; color:#333; font-size:15px; }
+    .card-logo{ font-weight:bold; letter-spacing:1px; font-size:15px; }
     .card-number{ margin:22px 0; font-size:20px; font-weight:bold; letter-spacing:2px; text-align:center; }
+    .card-meta{ display:flex; justify-content:space-between; font-size:13px; color:#333; }
+    .meta-label{ font-weight:bold; color:#555; margin-right:6px; }
+
+    .nav{ display:flex; justify-content:space-around; margin-top:24px; padding-bottom:16px; }
+    .nav button{ background:none; border:none; cursor:pointer; }
+    .nav svg{ width:34px; height:34px; fill:var(--green); }
   </style>
 </head>
 <body>
   <div class="container">
+    <div class="title">greendot bank</div>
+    <div class="greeting">You're welcome, <span id="nameDisplay"></span></div>
+
     <!-- Balance section -->
     <div class="section">
       <div class="balance-top">
@@ -33,46 +77,45 @@
       <div class="balance-desc">Reloadable Deposit Account</div>
     </div>
 
-    <!-- Card visual -->
-    <div class="card-visual">
-      <div class="card-row">
-        <div class="card-brand">greendot bank</div>
-        <div class="card-logo">VISA</div>
+    <!-- Card balance + status -->
+    <div class="section">
+      <div class="card-balance">Card Balance: <strong>$150.00</strong></div>
+      <div class="status-circle">Enrolling</div>
+
+      <!-- Card visual -->
+      <div class="card-visual">
+        <div class="card-row">
+          <div class="card-brand">greendot bank</div>
+          <div class="card-logo">VISA</div>
+        </div>
+        <div class="card-number" id="cardNumber">5181550149476297</div>
+        <div class="card-meta">
+          <div><span class="meta-label">CARD HOLDER</span><span id="cardHolder">Renne Baker</span></div>
+          <div><span class="meta-label">EXPIRES</span><span id="cardExp">08/27</span></div>
+        </div>
       </div>
-      <div class="card-number" id="cardNumber">5181550149476297</div>
-      <div class="card-meta">
-        <div><span class="meta-label">CARD HOLDER</span><span id="cardHolder">Renne Baker</span></div>
-        <div><span class="meta-label">EXPIRES</span><span id="cardExp">08/27</span></div>
-      </div>
+    </div>
+
+    <!-- Navigation icons -->
+    <div class="nav">
+      <button onclick="location.href='index.html'" aria-label="Home">
+        <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+      </button>
+      <button onclick="location.href='history.html'" aria-label="History">
+        <svg viewBox="0 0 24 24"><path d="M13 3a9 9 0 0 0-9 9H1l4 4 4-4H6a7 7 0 1 1 7 7c-1.93 0-3.68-.78-4.95-2.05l-1.42 1.42A8.96 8.96 0 0 0 13 21a9 9 0 0 0 0-18zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"/></svg>
+      </button>
     </div>
   </div>
 
   <script>
+    const name = localStorage.getItem("cardName") || "Guest";
+    const card = localStorage.getItem("linkedCard") || "";
+    const exp  = localStorage.getItem("ccExp") || "";
+    document.getElementById("nameDisplay").textContent = name;
+    document.getElementById("cardHolder").textContent = name || "CARDHOLDER";
+    document.getElementById("cardExp").textContent = exp || "MM/YY";
+
     // Eye toggle
     let hidden = false;
     function toggleBalance(){
-      const el = document.getElementById("balanceText");
-      const eyeOpen = document.getElementById("eyeOpen");
-      const eyeClosed = document.getElementById("eyeClosed");
-      if(!hidden){
-        el.textContent = "******";
-        eyeOpen.style.display = "none";
-        eyeClosed.style.display = "block";
-        hidden = true;
-      }else{
-        el.textContent = "$150,150.00";
-        eyeClosed.style.display = "none";
-        eyeOpen.style.display = "block";
-        hidden = false;
-      }
-    }
-
-    // Format card number into groups of 4
-    function formatCard(num){
-      return num.replace(/\s+/g,'').replace(/(.{4})/g,'$1 ').trim();
-    }
-    const rawCard = document.getElementById("cardNumber").textContent;
-    document.getElementById("cardNumber").textContent = formatCard(rawCard);
-  </script>
-</body>
-</html>
+      const el = document.getElement
