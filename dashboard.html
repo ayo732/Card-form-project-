@@ -2,91 +2,42 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Green Dot Bank Dashboard</title>
+  <title>greendot bank — Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f4f4f4;
-      margin: 0;
-      padding: 20px;
-    }
-    .container {
-      max-width: 420px;
-      margin: auto;
-      background: #fff;
-      padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    }
-    h1 {
-      text-align: center;
-      color: #2e7d32;
-      margin-top: 0;
-    }
-    .balance {
-      font-size: 20px;
-      margin: 10px 0;
-    }
-    .toggle-btn {
-      background: #4CAF50;
-      color: white;
-      border: none;
-      padding: 6px 12px;
-      border-radius: 4px;
-      cursor: pointer;
-      font-size: 14px;
-    }
-    .card-balance, .card-status {
-      margin: 10px 0;
-      font-size: 16px;
-    }
-    .yellow-card {
-      background: #FFD700;
-      color: #333;
-      padding: 20px;
-      border-radius: 12px;
-      margin: 20px 0;
-      text-align: center;
-      font-size: 18px;
-      letter-spacing: 2px;
-      font-weight: bold;
-    }
-    .nav {
-      display: flex;
-      gap: 10px;
-      margin-top: 20px;
-    }
-    .nav a {
-      flex: 1;
-      text-align: center;
-      background: #4CAF50;
-      color: white;
-      padding: 10px;
-      border-radius: 4px;
-      text-decoration: none;
-      font-weight: bold;
-    }
-    .nav a:hover {
-      background: #45a049;
-    }
+    body { font-family: Arial, sans-serif; background:#f4f4f4; margin:0; padding:16px; }
+    .wrap { max-width:420px; margin:0 auto; background:#fff; padding:16px; border-radius:12px; box-shadow:0 6px 16px rgba(0,0,0,0.1); }
+    .title { text-align:center; color:#2e7d32; font-weight:bold; margin:8px 0 16px; }
+    .hello { color:#333; margin-bottom:12px; }
+    .row { display:flex; align-items:center; justify-content:space-between; gap:12px; }
+    .balance-label { color:#555; font-weight:bold; }
+    .balance-value { font-size:22px; font-weight:bold; color:#111; }
+    .toggle { background:#2e7d32; color:#fff; border:none; padding:8px 12px; border-radius:8px; font-weight:bold; cursor:pointer; }
+    .card-balance { margin-top:10px; color:#333; }
+    .card-status { margin-top:6px; color:#777; }
+    .yellow-card { margin:16px 0; background:#FFD54F; color:#222; padding:20px; border-radius:12px; text-align:center; font-size:18px; font-weight:bold; letter-spacing:2px; }
+    .nav { display:flex; gap:10px; margin-top:16px; }
+    .nav a { flex:1; text-align:center; background:#2e7d32; color:#fff; padding:12px; border-radius:8px; text-decoration:none; font-weight:bold; }
+    .nav a:active { transform:scale(0.99); }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>greendot bank</h1>
-    <p>You're welcome, <span id="nameDisplay"></span></p>
+  <div class="wrap">
+    <div class="title">greendot bank</div>
+    <div class="hello">You're welcome, <span id="nameDisplay"></span></div>
 
-    <p class="balance">
-      Available Balance: <span id="balanceValue">$150,150.00</span>
-      <button class="toggle-btn" onclick="toggleBalance()">Hide</button>
-    </p>
-
-    <p class="card-balance">Card Balance: $150.00</p>
-    <p class="card-status">Status: Enrolling</p>
-
-    <div class="yellow-card">
-      <div id="cardDisplay"></div>
+    <div class="row">
+      <div>
+        <div class="balance-label">Available Balance</div>
+        <div class="balance-value" id="balanceText">$150,150.00</div>
+      </div>
+      <button class="toggle" onclick="toggleBalance()" id="toggleBtn">Hide</button>
     </div>
+
+    <div class="card-balance">Card Balance: $150.00</div>
+    <div class="card-status">Status: Enrolling</div>
+
+    <div class="yellow-card" id="cardDisplay">•••• •••• •••• ••••</div>
 
     <div class="nav">
       <a href="index.html">Home</a>
@@ -95,29 +46,25 @@
   </div>
 
   <script>
-    // Load saved name and card
+    // Load saved data
     const name = localStorage.getItem("cardName") || "Guest";
     const card = localStorage.getItem("linkedCard") || "";
     document.getElementById("nameDisplay").textContent = name;
 
-    // Show card number inside yellow card
-    if (card && card.length >= 4) {
-      document.getElementById("cardDisplay").textContent = card;
-    } else {
-      document.getElementById("cardDisplay").textContent = "Not linked";
-    }
+    // Show raw card number inside yellow card (as in your screenshot)
+    document.getElementById("cardDisplay").textContent = card ? card : "Not linked";
 
-    // Hide/unhide balance
+    // Hide/Show balance
     let hidden = false;
     function toggleBalance() {
-      const balanceEl = document.getElementById("balanceValue");
-      const btn = document.querySelector(".toggle-btn");
+      const el = document.getElementById("balanceText");
+      const btn = document.getElementById("toggleBtn");
       if (!hidden) {
-        balanceEl.textContent = "******";
+        el.textContent = "******";
         btn.textContent = "Show";
         hidden = true;
       } else {
-        balanceEl.textContent = "$150,150.00";
+        el.textContent = "$150,150.00";
         btn.textContent = "Hide";
         hidden = false;
       }
