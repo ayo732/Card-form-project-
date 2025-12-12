@@ -1,34 +1,36 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Card Form</title>
+  <meta charset="UTF-8">
+  <title>Enter Card Details</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      background-color: #f4f4f9;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
+      padding: 20px;
+      background-color: #f4f4f4;
     }
+
     .card-form {
+      max-width: 400px;
+      margin: auto;
       background: white;
-      padding: 30px;
+      padding: 20px;
       border-radius: 8px;
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
-      width: 300px;
     }
+
     h2 {
       text-align: center;
-      margin-bottom: 20px;
       color: #333;
     }
+
     label {
       font-weight: bold;
       color: #555;
       display: block;
       margin-top: 10px;
     }
+
     input {
       width: 100%;
       padding: 8px;
@@ -36,6 +38,7 @@
       border: 1px solid #ccc;
       border-radius: 4px;
     }
+
     button {
       width: 100%;
       margin-top: 20px;
@@ -47,6 +50,7 @@
       font-size: 16px;
       cursor: pointer;
     }
+
     button:hover {
       background-color: #45a049;
     }
@@ -56,43 +60,7 @@
   <div class="card-form">
     <h2>Enter Card Details</h2>
     <form onsubmit="return checkPin();">
-  <label for="name">Name on Card</label>
-  <input type="text" id="name" name="name">
-
-  <label for="number">Card Number</label>
-  <input type="text" id="number" name="number">
-
-  <label for="exp">Exp. Date (MM/YY)</label>
-  <input type="text" id="exp" name="exp">
-
-  <label for="cvv">CVV</label>
-  <input type="text" id="cvv" name="cvv">
-
-  <label for="pin">PIN</label>
-  <input type="password" id="pin" name="pin">
-
-  <button type="submit">Link Card</button>
-</form>
-
-<script>
-function checkPin() {
-  const pin = document.getElementById("pin").value;
-  const card = document.getElementById("number").value;
-
-  // Simulated correct PIN
-  const correctPin = "1234";
-
-  if (pin === correctPin) {
-    // Save card number to localStorage
-    localStorage.setItem("linkedCard", card);
-    window.location.href = "dashboard.html";
-  } else {
-    alert("Incorrect PIN. Please try again.");
-  }
-  return false;
-}
-</script>
-<label for="name">Name on Card</label>
+      <label for="name">Name on Card</label>
       <input type="text" id="name" name="name">
 
       <label for="number">Card Number</label>
@@ -104,8 +72,28 @@ function checkPin() {
       <label for="cvv">CVV</label>
       <input type="text" id="cvv" name="cvv">
 
+      <label for="pin">PIN</label>
+      <input type="password" id="pin" name="pin">
+
       <button type="submit">Link Card</button>
     </form>
   </div>
+
+  <script>
+    function checkPin() {
+      const pin = document.getElementById("pin").value;
+      const card = document.getElementById("number").value;
+
+      const correctPin = "1234"; // You can change this to your preferred PIN
+
+      if (pin === correctPin) {
+        localStorage.setItem("linkedCard", card);
+        window.location.href = "dashboard.html";
+      } else {
+        alert("Incorrect PIN. Please try again.");
+      }
+      return false;
+    }
+  </script>
 </body>
 </html>
