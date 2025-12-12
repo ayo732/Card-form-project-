@@ -58,7 +58,12 @@
   <div class="dashboard">
     <h1>greendot bank</h1>
     <p class="balance">Available Balance: $150,150.00</p>
-    <p class="card-number">Card Number: 5181 5501 4947 6297</p>
+    <p class="card-number">Card Number: <span id="cardDisplay"></span></p>
+
+<script>
+  const card = localStorage.getItem("linkedCard");
+  document.getElementById("cardDisplay").textContent = card || "Not linked";
+</script>
     <div class="nav-buttons">
       <a href="index.html">Home</a>
       <a href="history.html">History</a>
