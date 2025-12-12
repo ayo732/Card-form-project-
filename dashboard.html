@@ -11,7 +11,7 @@
       --muted:#777;
       --cardYellow:#FFD54F;
       --radius:12px;
-      --shadow:0 6px 18px rgba(0,0,0,0.12);
+      --shadow:0 8px 20px rgba(0,0,0,0.15);
     }
     *{box-sizing:border-box}
     body{font-family:Arial, sans-serif; background:var(--bg); margin:0; padding:16px;}
@@ -20,7 +20,7 @@
     .greeting{ text-align:center; color:#333; font-size:16px; margin-bottom:16px; font-weight:500; }
     .greeting::before{ content:"✔ "; color:var(--green); font-weight:bold; }
 
-    .section{ background:#fff; border-radius:var(--radius); box-shadow:var(--shadow); padding:18px; margin-bottom:14px; }
+    .section{ background:#fff; border-radius:var(--radius); box-shadow:var(--shadow); padding:20px; margin-bottom:16px; }
 
     .balance-top{ display:flex; align-items:center; justify-content:space-between; }
     .balance-label{ color:#555; font-weight:bold; font-size:14px; }
@@ -39,18 +39,18 @@
 
     .card-visual{
       background:var(--cardYellow); border-radius:14px; box-shadow:var(--shadow);
-      padding:24px; color:#222; margin-top:12px;
+      padding:26px; color:#222; margin-top:12px;
     }
     .card-row{ display:flex; align-items:center; justify-content:space-between; }
     .card-brand{ font-weight:bold; color:#333; font-size:15px; }
     .card-logo{ font-weight:bold; letter-spacing:1px; font-size:15px; }
-    .card-number{ margin:20px 0; font-size:20px; font-weight:bold; letter-spacing:2px; text-align:center; }
+    .card-number{ margin:22px 0; font-size:20px; font-weight:bold; letter-spacing:2px; text-align:center; }
     .card-meta{ display:flex; justify-content:space-between; font-size:13px; color:#333; }
     .meta-label{ font-weight:bold; color:#555; margin-right:6px; }
 
-    .nav{ display:flex; justify-content:space-around; margin-top:24px; padding-bottom:12px; }
+    .nav{ display:flex; justify-content:space-around; margin-top:24px; padding-bottom:16px; }
     .nav button{ background:none; border:none; cursor:pointer; }
-    .nav svg{ width:32px; height:32px; fill:var(--green); }
+    .nav svg{ width:34px; height:34px; fill:var(--green); }
   </style>
 </head>
 <body>
@@ -116,4 +116,10 @@
     document.getElementById("cardExp").textContent = exp || "MM/YY";
 
     function formatCard(num){
-      return num.replace(/\s+/g,'').replace(/
+      return num.replace(/\s+/g,'').replace(/(.{4})/g,'$1 ').trim();
+    }
+    if(card){
+      document.getElementById("cardNumber").textContent = formatCard(card);
+    }
+
+   
