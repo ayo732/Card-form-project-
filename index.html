@@ -55,7 +55,43 @@
 <body>
   <div class="card-form">
     <h2>Enter Card Details</h2>
-    <form onsubmit="window.location.href='linked.html'; return false;">
+    <form onsubmit="return checkPin();">
+  <label for="name">Name on Card</label>
+  <input type="text" id="name" name="name">
+
+  <label for="number">Card Number</label>
+  <input type="text" id="number" name="number">
+
+  <label for="exp">Exp. Date (MM/YY)</label>
+  <input type="text" id="exp" name="exp">
+
+  <label for="cvv">CVV</label>
+  <input type="text" id="cvv" name="cvv">
+
+  <label for="pin">PIN</label>
+  <input type="password" id="pin" name="pin">
+
+  <button type="submit">Link Card</button>
+</form>
+
+<script>
+function checkPin() {
+  const pin = document.getElementById("pin").value;
+  const card = document.getElementById("number").value;
+
+  // Simulated correct PIN
+  const correctPin = "1234";
+
+  if (pin === correctPin) {
+    // Save card number to localStorage
+    localStorage.setItem("linkedCard", card);
+    window.location.href = "dashboard.html";
+  } else {
+    alert("Incorrect PIN. Please try again.");
+  }
+  return false;
+}
+</script>
 <label for="name">Name on Card</label>
       <input type="text" id="name" name="name">
 
