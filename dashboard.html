@@ -1,73 +1,53 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Dashboard</title>
+  <meta charset="UTF-8">
+  <title>Green Dot Bank</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f4f4f9;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-    }
-    .dashboard {
-      background: white;
-      padding: 30px;
-      border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-      text-align: center;
-      width: 320px;
-    }
-    h1 {
-      color: #4CAF50;
-      margin-bottom: 20px;
-    }
-    .balance {
-      font-size: 22px;
-      font-weight: bold;
-      margin: 15px 0;
-      color: #333;
-    }
-    .card-number {
-      font-size: 16px;
-      color: #555;
-      margin-bottom: 20px;
-    }
-    .nav-buttons {
-      display: flex;
-      justify-content: space-around;
-      margin-top: 20px;
-    }
-    .nav-buttons a {
-      flex: 1;
-      margin: 0 5px;
-      padding: 10px;
-      background-color: #4CAF50;
-      color: white;
-      text-decoration: none;
-      border-radius: 4px;
-      font-weight: bold;
-    }
-    .nav-buttons a:hover {
-      background-color: #45a049;
-    }
+    body { font-family: Arial, sans-serif; background-color: #f4f4f4; margin: 0; padding: 20px; }
+    .container { max-width: 420px; margin: auto; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+    h1 { text-align: center; color: #2e7d32; margin-top: 0; }
+    .greet, .balance, .card-balance, .card-status, .card-number { margin: 10px 0; font-size: 16px; }
+    .card-visual { background: linear-gradient(135deg, #4CAF50, #2e7d32); color: white; padding: 18px; border-radius: 12px; margin: 16px 0; text-align: center; font-size: 18px; letter-spacing: 2px; }
+    .nav { display: flex; gap: 10px; margin-top: 20px; }
+    .nav a { flex: 1; text-align: center; background: #4CAF50; color: white; padding: 10px; border-radius: 4px; text-decoration: none; font-weight: bold; }
+    .nav a:hover { background: #45a049; }
   </style>
 </head>
 <body>
-  <div class="dashboard">
+  <div class="container">
     <h1>greendot bank</h1>
+    <p class="greet">You're welcome, <span id="nameDisplay"></span></p>
     <p class="balance">Available Balance: $150,150.00</p>
-    <p class="card-number">Card Number: <span id="cardDisplay"></span></p>
+    <p class="card-balance">Card Balance: $150.00</p>
+    <p class="card-status">Status: Enrolling</p>
 
-<script>
-  const card = localStorage.getItem("linkedCard");
-  document.getElementById("cardDisplay").textContent = card || "Not linked";
-</script>
-    <div class="nav-buttons">
+    <div class="card-visual">
+      <div>Visa</div>
+      <div id="cardDisplay"></div>
+    </div>
+
+    <div class="card-number">Card Number: <span id="cardPlain"></span></div>
+
+    <div class="nav">
       <a href="index.html">Home</a>
       <a href="history.html">History</a>
     </div>
   </div>
+
+  <script>
+    const name = localStorage.getItem("cardName") || "Guest";
+    const card = localStorage.getItem("linkedCard") || "";
+    document.getElementById("nameDisplay").textContent = name;
+
+    if (card && card.length >= 4) {
+      const masked = "**** **** **** " + card.slice(-4);
+      document.getElementById("cardDisplay").textContent = masked;
+      document.getElementById("cardPlain").textContent = card;
+    } else {
+      document.getElementById("cardDisplay").textContent = "Not linked";
+      document.getElementById("cardPlain").textContent = "Not linked";
+    }
+  </script>
 </body>
 </html>
