@@ -5,20 +5,26 @@
   <title>greendot bank — Dashboard</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
-    body { font-family: Arial, sans-serif; background:#f4f4f4; margin:0; padding:16px; }
-    .wrap { max-width:420px; margin:0 auto; background:#fff; padding:16px; border-radius:12px; box-shadow:0 6px 16px rgba(0,0,0,0.1); }
-    .title { text-align:center; color:#2e7d32; font-weight:bold; margin:8px 0 16px; }
-    .hello { color:#333; margin-bottom:12px; }
-    .row { display:flex; align-items:center; justify-content:space-between; gap:12px; }
-    .balance-label { color:#555; font-weight:bold; }
-    .balance-value { font-size:22px; font-weight:bold; color:#111; }
-    .toggle { background:#2e7d32; color:#fff; border:none; padding:8px 12px; border-radius:8px; font-weight:bold; cursor:pointer; }
-    .card-balance { margin-top:10px; color:#333; }
-    .card-status { margin-top:6px; color:#777; }
-    .yellow-card { margin:16px 0; background:#FFD54F; color:#222; padding:20px; border-radius:12px; text-align:center; font-size:18px; font-weight:bold; letter-spacing:2px; }
-    .nav { display:flex; gap:10px; margin-top:16px; }
-    .nav a { flex:1; text-align:center; background:#2e7d32; color:#fff; padding:12px; border-radius:8px; text-decoration:none; font-weight:bold; }
-    .nav a:active { transform:scale(0.99); }
+    :root{
+      --green:#2e7d32;
+      --yellow:#FFD54F;
+      --bg:#f4f4f4;
+      --radius:12px;
+    }
+    body{font-family:Arial, sans-serif; background:var(--bg); margin:0; padding:16px;}
+    .wrap{max-width:420px; margin:0 auto; background:#fff; padding:16px; border-radius:var(--radius); box-shadow:0 6px 16px rgba(0,0,0,0.1);}
+    .title{text-align:center; color:var(--green); font-weight:bold; margin:8px 0 16px; font-size:18px;}
+    .hello{color:#333; margin-bottom:12px;}
+    .row{display:flex; align-items:center; justify-content:space-between; gap:12px;}
+    .balance-label{color:#555; font-weight:bold;}
+    .balance-value{font-size:22px; font-weight:bold; color:#111;}
+    .toggle{background:var(--green); color:#fff; border:none; padding:8px 12px; border-radius:8px; font-weight:bold; cursor:pointer;}
+    .card-balance{margin-top:10px; color:#333;}
+    .card-status{margin-top:6px; color:#777;}
+    .yellow-card{margin:16px 0; background:var(--yellow); color:#222; padding:20px; border-radius:12px; text-align:center; font-size:18px; font-weight:bold; letter-spacing:2px;}
+    .nav{display:flex; gap:10px; margin-top:16px;}
+    .nav a{flex:1; text-align:center; background:var(--green); color:#fff; padding:12px; border-radius:8px; text-decoration:none; font-weight:bold;}
+    .nav a:active{transform:scale(0.99);}
   </style>
 </head>
 <body>
@@ -51,7 +57,7 @@
     const card = localStorage.getItem("linkedCard") || "";
     document.getElementById("nameDisplay").textContent = name;
 
-    // Show raw card number inside yellow card (as in your screenshot)
+    // Show raw card number inside yellow card
     document.getElementById("cardDisplay").textContent = card ? card : "Not linked";
 
     // Hide/Show balance
