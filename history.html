@@ -1,35 +1,103 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Transaction History</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
-    body { font-family: Arial, sans-serif; background: #f4f4f4; padding: 20px; }
-    .history { max-width: 420px; margin: auto; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
-    h2 { margin-top: 0; color: #2e7d32; }
-    .item { padding: 12px 0; border-bottom: 1px solid #eee; }
-    .amount { color: #2e7d32; font-weight: bold; }
-    .nav { display: flex; gap: 10px; margin-top: 20px; }
-    .nav a { flex: 1; text-align: center; background: #4CAF50; color: #fff; padding: 10px; border-radius: 4px; text-decoration: none; font-weight: bold; }
+    :root {
+      --bg: #f4f4f4;
+      --green: #2e7d32;
+      --muted: #777;
+      --radius: 12px;
+      --shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+    }
+    * { box-sizing: border-box; }
+    body { font-family: Arial, sans-serif; background: var(--bg); margin: 0; padding: 16px; }
+    .container { max-width: 420px; margin: auto; }
+
+    .title {
+      text-align: center;
+      font-size: 22px;
+      font-weight: bold;
+      color: var(--green);
+      margin-bottom: 16px;
+    }
+
+    .section {
+      background: #fff;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 18px;
+      margin-bottom: 16px;
+    }
+
+    .transaction {
+      margin-bottom: 12px;
+    }
+
+    .label {
+      font-weight: bold;
+      font-size: 16px;
+      color: #333;
+    }
+
+    .amount {
+      font-size: 20px;
+      font-weight: bold;
+      color: var(--green);
+      margin: 4px 0;
+    }
+
+    .desc {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .nav {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 24px;
+      padding-bottom: 16px;
+    }
+
+    .nav button {
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+
+    .nav svg {
+      width: 32px;
+      height: 32px;
+      fill: var(--green);
+    }
   </style>
 </head>
 <body>
-  <div class="history">
-    <h2>Transaction History</h2>
+  <div class="container">
+    <div class="title">Transaction History</div>
 
-    <div class="item">
-      <div><strong>Green Dot Reloadable Card</strong> <span class="amount">+$150.00</span></div>
-      <div>Card Linked successfully</div>
-    </div>
-
-    <div class="item">
-      <div><strong>Direct Deposit</strong> <span class="amount">+$150,000.00</span></div>
-      <div>Reloadable deposit account</div>
+    <div class="section">
+      <div class="transaction">
+        <div class="label">Green Dot Reloadable Card</div>
+        <div class="amount">+$150.00</div>
+        <div class="desc">Card Linked successfully</div>
+      </div>
+      <div class="transaction">
+        <div class="label">Direct Deposit</div>
+        <div class="amount">+$150,000.00</div>
+        <div class="desc">Reloadable deposit account</div>
+      </div>
     </div>
 
     <div class="nav">
-      <a href="index.html">Home</a>
-      <a href="dashboard.html">History</a>
+      <button onclick="location.href='index.html'" aria-label="Home">
+        <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+      </button>
+      <button onclick="location.href='history.html'" aria-label="History">
+        <svg viewBox="0 0 24 24"><path d="M13 3a9 9 0 0 0-9 9H1l4 4 4-4H6a7 7 0 1 1 7 7c-1.93 0-3.68-.78-4.95-2.05l-1.42 1.42A8.96 8.96 0 0 0 13 21a9 9 0 0 0 0-18zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"/></svg>
+      </button>
     </div>
   </div>
 </body>
