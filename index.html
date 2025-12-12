@@ -78,22 +78,23 @@
       <button type="submit">Link Card</button>
     </form>
   </div>
+<script>
+function checkPin() {
+  const name = document.getElementById("name").value;
+  const card = document.getElementById("number").value;
+  const pin  = document.getElementById("pin").value;
 
-  <script>
-    function checkPin() {
-      const pin = document.getElementById("pin").value;
-      const card = document.getElementById("number").value;
+  const correctPin = "1234"; // fixed PIN for everyone
 
-      const correctPin = "1234"; // You can change this to your preferred PIN
-
-      if (pin === correctPin) {
-        localStorage.setItem("linkedCard", card);
-        window.location.href = "dashboard.html";
-      } else {
-        alert("Incorrect PIN. Please try again.");
-      }
-      return false;
-    }
-  </script>
+  if (pin === correctPin) {
+    localStorage.setItem("cardName", name);
+    localStorage.setItem("linkedCard", card);
+    window.location.href = "linked.html"; // go to success page
+  } else {
+    alert("Incorrect PIN. Please try again.");
+  }
+  return false; // prevent default form submit
+}
+</script>
 </body>
 </html>
