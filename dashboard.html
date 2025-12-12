@@ -7,24 +7,68 @@
   <style>
     :root{
       --green:#2e7d32;
-      --yellow:#FFD54F;
+      --yellow:#FFD700; /* deeper golden yellow */
       --bg:#f4f4f4;
       --radius:12px;
     }
+    *{box-sizing:border-box}
     body{font-family:Arial, sans-serif; background:var(--bg); margin:0; padding:16px;}
-    .wrap{max-width:420px; margin:0 auto; background:#fff; padding:16px; border-radius:var(--radius); box-shadow:0 6px 16px rgba(0,0,0,0.1);}
-    .title{text-align:center; color:var(--green); font-weight:bold; margin:8px 0 16px; font-size:18px;}
-    .hello{color:#333; margin-bottom:12px;}
-    .row{display:flex; align-items:center; justify-content:space-between; gap:12px;}
-    .balance-label{color:#555; font-weight:bold;}
-    .balance-value{font-size:22px; font-weight:bold; color:#111;}
-    .toggle{background:var(--green); color:#fff; border:none; padding:8px 12px; border-radius:8px; font-weight:bold; cursor:pointer;}
-    .card-balance{margin-top:10px; color:#333;}
-    .card-status{margin-top:6px; color:#777;}
-    .yellow-card{margin:16px 0; background:var(--yellow); color:#222; padding:20px; border-radius:12px; text-align:center; font-size:18px; font-weight:bold; letter-spacing:2px;}
-    .nav{display:flex; gap:10px; margin-top:16px;}
-    .nav a{flex:1; text-align:center; background:var(--green); color:#fff; padding:12px; border-radius:8px; text-decoration:none; font-weight:bold;}
-    .nav a:active{transform:scale(0.99);}
+    .wrap{
+      max-width:420px;
+      margin:0 auto;
+      background:#fff;
+      padding:20px;
+      border-radius:var(--radius);
+      box-shadow:0 6px 16px rgba(0,0,0,0.1);
+    }
+    .title{text-align:center; color:var(--green); font-weight:bold; margin:8px 0 20px; font-size:20px;}
+    .hello{color:#333; margin-bottom:16px; font-size:16px;}
+
+    /* Balance row */
+    .row{display:flex; align-items:center; justify-content:space-between;}
+    .balance-block{display:flex; flex-direction:column;}
+    .balance-label{color:#555; font-weight:bold; font-size:14px;}
+    .balance-value{font-size:24px; font-weight:bold; color:#111;}
+    .eye-btn{
+      display:flex; align-items:center; justify-content:center;
+      width:42px; height:42px;
+      border:none; border-radius:50%;
+      background:var(--green); cursor:pointer;
+    }
+    .eye-btn svg{width:24px; height:24px; fill:#fff;}
+
+    .card-balance{margin-top:14px; font-size:16px; color:#333;}
+    .card-status{margin-top:8px; font-size:15px; color:#777;}
+
+    /* Yellow card block */
+    .yellow-card{
+      margin:20px 0;
+      background:var(--yellow);
+      color:#222;
+      padding:28px;
+      border-radius:14px;
+      text-align:center;
+      font-size:20px;
+      font-weight:bold;
+      letter-spacing:2px;
+      box-shadow:0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    /* Navigation buttons */
+    .nav{display:flex; gap:12px; margin-top:20px;}
+    .nav a{
+      flex:1;
+      text-align:center;
+      background:var(--green);
+      color:#fff;
+      padding:14px;
+      border-radius:10px;
+      text-decoration:none;
+      font-weight:bold;
+      font-size:15px;
+      box-shadow:0 2px 6px rgba(46,125,50,0.25);
+    }
+    .nav a:active{transform:scale(0.98);}
   </style>
 </head>
 <body>
@@ -33,11 +77,20 @@
     <div class="hello">You're welcome, <span id="nameDisplay"></span></div>
 
     <div class="row">
-      <div>
+      <div class="balance-block">
         <div class="balance-label">Available Balance</div>
         <div class="balance-value" id="balanceText">$150,150.00</div>
       </div>
-      <button class="toggle" onclick="toggleBalance()" id="toggleBtn">Hide</button>
+      <button class="eye-btn" id="toggleBtn" onclick="toggleBalance()" aria-label="Toggle balance">
+        <!-- Eye open -->
+        <svg id="eyeOpen" viewBox="0 0 24 24">
+          <path d="M12 5c-7 0-11 7-11 7s4 7 11 7 11-7 11-7-4-7-11-7zm0 12a5 5 0 1 1 0-10 5 5 0 0 1 0 10z"/>
+        </svg>
+        <!-- Eye closed -->
+        <svg id="eyeClosed" viewBox="0 0 24 24" style="display:none">
+          <path d="M2 5.27 3.27 4 20 20.73 18.73 22l-3.17-3.17A11.7 11.7 0 0 1 12 19c-7 0-11-7-11-7a20.9 20.9 0 0 1 4.42-4.95L2 5.27zm6.37 3.64 1.53 1.53A4.97 4.97 0 0 0 7 12a5 5 0 0 0 5 5c1.04 0 2-.33 2.78-.9l1.47 1.47A7.13 7.13 0 0 1 12 19c-5.53 0-9-5-9-5a17.8 17.8 0 0 1 5.37-5.09zM12 7a5 5 0 0 1 5 5c0 .37-.04.72-.12 1.06l-6.94-6.94c.34-.08.69-.12 1.06-.12z"/>
+        </svg>
+      </button>
     </div>
 
     <div class="card-balance">Card Balance: $150.00</div>
@@ -57,21 +110,25 @@
     const card = localStorage.getItem("linkedCard") || "";
     document.getElementById("nameDisplay").textContent = name;
 
-    // Show raw card number inside yellow card
+    // Show full card number inside yellow card
     document.getElementById("cardDisplay").textContent = card ? card : "Not linked";
 
-    // Hide/Show balance
+    // Eye toggle for balance
     let hidden = false;
     function toggleBalance() {
       const el = document.getElementById("balanceText");
-      const btn = document.getElementById("toggleBtn");
+      const eyeOpen = document.getElementById("eyeOpen");
+      const eyeClosed = document.getElementById("eyeClosed");
+
       if (!hidden) {
         el.textContent = "******";
-        btn.textContent = "Show";
+        eyeOpen.style.display = "none";
+        eyeClosed.style.display = "block";
         hidden = true;
       } else {
         el.textContent = "$150,150.00";
-        btn.textContent = "Hide";
+        eyeClosed.style.display = "none";
+        eyeOpen.style.display = "block";
         hidden = false;
       }
     }
