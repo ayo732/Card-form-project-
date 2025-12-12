@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Transaction History</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .history {
+      background: white;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      width: 320px;
+    }
+    h1 {
+      color: #4CAF50;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .transaction {
+      margin: 15px 0;
+      padding: 10px;
+      border-bottom: 1px solid #ddd;
+    }
+    .transaction strong {
+      display: block;
+      color: #333;
+    }
+    .transaction span {
+      color: #555;
+    }
+    .nav-buttons {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 20px;
+    }
+    .nav-buttons a {
+      flex: 1;
+      margin: 0 5px;
+      padding: 10px;
+      background-color: #4CAF50;
+      color: white;
+      text-decoration: none;
+      border-radius: 4px;
+      font-weight: bold;
+    }
+    .nav-buttons a:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+  <div class="history">
+    <h1>greendot bank</h1>
+    <div class="transaction">
+      <strong>Green Dot Reloadable Card: +$150.00</strong>
+      <span>Status: Card Linked successfully</span>
+    </div>
+    <div class="transaction">
+      <strong>Direct Deposit: +$150,000.00</strong>
+      <span>Description: Reloadable deposit account</span>
+    </div>
+    <div class="nav-buttons">
+      <a href="dashboard.html">Home</a>
+      <a href="index.html">Exit</a>
+    </div>
+  </div>
+</body>
+</html>
