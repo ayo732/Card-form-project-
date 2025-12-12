@@ -1,102 +1,134 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>greendot bank — Dashboard</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
-    :root{
-      --green:#2e7d32;
-      --yellow:#FFD700; /* deeper golden yellow */
-      --bg:#f4f4f4;
-      --radius:12px;
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      margin: 0;
+      padding: 16px;
     }
-    *{box-sizing:border-box}
-    body{font-family:Arial, sans-serif; background:var(--bg); margin:0; padding:16px;}
-    .wrap{
-      max-width:420px;
-      margin:0 auto;
-      background:#fff;
-      padding:20px;
-      border-radius:var(--radius);
-      box-shadow:0 6px 16px rgba(0,0,0,0.1);
+    .container {
+      max-width: 420px;
+      margin: auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
     }
-    .title{text-align:center; color:var(--green); font-weight:bold; margin:8px 0 20px; font-size:20px;}
-    .hello{color:#333; margin-bottom:16px; font-size:16px;}
-
-    /* Balance row */
-    .row{display:flex; align-items:center; justify-content:space-between;}
-    .balance-block{display:flex; flex-direction:column;}
-    .balance-label{color:#555; font-weight:bold; font-size:14px;}
-    .balance-value{font-size:24px; font-weight:bold; color:#111;}
-    .eye-btn{
-      display:flex; align-items:center; justify-content:center;
-      width:42px; height:42px;
-      border:none; border-radius:50%;
-      background:var(--green); cursor:pointer;
+    h1 {
+      text-align: center;
+      color: #2e7d32;
+      font-size: 20px;
+      margin-bottom: 20px;
     }
-    .eye-btn svg{width:24px; height:24px; fill:#fff;}
-
-    .card-balance{margin-top:14px; font-size:16px; color:#333;}
-    .card-status{margin-top:8px; font-size:15px; color:#777;}
-
-    /* Yellow card block */
-    .yellow-card{
-      margin:20px 0;
-      background:var(--yellow);
-      color:#222;
-      padding:28px;
-      border-radius:14px;
-      text-align:center;
-      font-size:20px;
-      font-weight:bold;
-      letter-spacing:2px;
-      box-shadow:0 4px 10px rgba(0,0,0,0.1);
+    .greeting {
+      font-size: 16px;
+      color: #333;
+      margin-bottom: 16px;
+      text-align: center;
     }
-
-    /* Navigation buttons */
-    .nav{display:flex; gap:12px; margin-top:20px;}
-    .nav a{
-      flex:1;
-      text-align:center;
-      background:var(--green);
-      color:#fff;
-      padding:14px;
-      border-radius:10px;
-      text-decoration:none;
-      font-weight:bold;
-      font-size:15px;
-      box-shadow:0 2px 6px rgba(46,125,50,0.25);
+    .balance-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
     }
-    .nav a:active{transform:scale(0.98);}
+    .balance-label {
+      font-weight: bold;
+      color: #555;
+      font-size: 14px;
+    }
+    .balance-amount {
+      font-size: 24px;
+      font-weight: bold;
+      color: #111;
+    }
+    .balance-description {
+      font-size: 13px;
+      color: #777;
+      margin-bottom: 16px;
+    }
+    .eye-icon {
+      background: none;
+      border: none;
+      padding: 0;
+      margin-left: 8px;
+      cursor: pointer;
+    }
+    .eye-icon svg {
+      width: 24px;
+      height: 24px;
+      fill: #777;
+    }
+    .card-balance {
+      font-size: 16px;
+      color: #333;
+      margin-bottom: 4px;
+    }
+    .card-status {
+      font-size: 14px;
+      color: #777;
+      margin-bottom: 20px;
+    }
+    .card-visual {
+      background: #ffd700;
+      padding: 28px;
+      border-radius: 14px;
+      text-align: center;
+      font-size: 20px;
+      font-weight: bold;
+      letter-spacing: 2px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      margin-bottom: 24px;
+    }
+    .nav {
+      display: flex;
+      gap: 12px;
+    }
+    .nav a {
+      flex: 1;
+      text-align: center;
+      background: #2e7d32;
+      color: #fff;
+      padding: 14px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 15px;
+      box-shadow: 0 2px 6px rgba(46, 125, 50, 0.25);
+    }
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <div class="title">greendot bank</div>
-    <div class="hello">You're welcome, <span id="nameDisplay"></span></div>
+  <div class="container">
+    <h1>greendot bank</h1>
+    <div class="greeting">You're welcome, <span id="nameDisplay"></span></div>
 
-    <div class="row">
-      <div class="balance-block">
+    <div class="balance-row">
+      <div>
         <div class="balance-label">Available Balance</div>
-        <div class="balance-value" id="balanceText">$150,150.00</div>
+        <div class="balance-amount" id="balanceText">$150,150.00</div>
       </div>
-      <button class="eye-btn" id="toggleBtn" onclick="toggleBalance()" aria-label="Toggle balance">
-        <!-- Eye open -->
+      <button class="eye-icon" onclick="toggleBalance()" aria-label="Toggle balance">
         <svg id="eyeOpen" viewBox="0 0 24 24">
           <path d="M12 5c-7 0-11 7-11 7s4 7 11 7 11-7 11-7-4-7-11-7zm0 12a5 5 0 1 1 0-10 5 5 0 0 1 0 10z"/>
         </svg>
-        <!-- Eye closed -->
         <svg id="eyeClosed" viewBox="0 0 24 24" style="display:none">
           <path d="M2 5.27 3.27 4 20 20.73 18.73 22l-3.17-3.17A11.7 11.7 0 0 1 12 19c-7 0-11-7-11-7a20.9 20.9 0 0 1 4.42-4.95L2 5.27zm6.37 3.64 1.53 1.53A4.97 4.97 0 0 0 7 12a5 5 0 0 0 5 5c1.04 0 2-.33 2.78-.9l1.47 1.47A7.13 7.13 0 0 1 12 19c-5.53 0-9-5-9-5a17.8 17.8 0 0 1 5.37-5.09zM12 7a5 5 0 0 1 5 5c0 .37-.04.72-.12 1.06l-6.94-6.94c.34-.08.69-.12 1.06-.12z"/>
         </svg>
       </button>
     </div>
 
+    <div class="balance-description">Reloadable Deposit Account</div>
+
     <div class="card-balance">Card Balance: $150.00</div>
     <div class="card-status">Status: Enrolling</div>
 
-    <div class="yellow-card" id="cardDisplay">•••• •••• •••• ••••</div>
+    <div class="card-visual" id="cardDisplay">•••• •••• •••• ••••</div>
 
     <div class="nav">
       <a href="index.html">Home</a>
@@ -105,21 +137,16 @@
   </div>
 
   <script>
-    // Load saved data
     const name = localStorage.getItem("cardName") || "Guest";
     const card = localStorage.getItem("linkedCard") || "";
     document.getElementById("nameDisplay").textContent = name;
-
-    // Show full card number inside yellow card
     document.getElementById("cardDisplay").textContent = card ? card : "Not linked";
 
-    // Eye toggle for balance
     let hidden = false;
     function toggleBalance() {
       const el = document.getElementById("balanceText");
       const eyeOpen = document.getElementById("eyeOpen");
       const eyeClosed = document.getElementById("eyeClosed");
-
       if (!hidden) {
         el.textContent = "******";
         eyeOpen.style.display = "none";
